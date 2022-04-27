@@ -6,6 +6,8 @@ authors = ["AleksandraV <am.amsti@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+requests = "^2.27.1"
+aiogram = "^2.20"
 
 [tool.poetry.dev-dependencies]
 
