@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, request
 from postgres_conn import input_data
 
+
 app = Flask(__name__)
 
 head = ("""<!DOCTYPE HTML>
@@ -14,7 +15,7 @@ head = ("""<!DOCTYPE HTML>
 
 success = ("<h3>Регистрация прошла успешно, можно вернуться к боту</h3>"
            """
-            <form action="https://t.me/msc_wnow_bot?start=">
+            <form action="https://t.me/msc_wnow_bot?start=start">
                <input type="submit" value="Go to Bot" />
            </form>""")
 

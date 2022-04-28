@@ -27,12 +27,9 @@ class BotUsers(base):
         return True
 
 
-def check_user(user_id):
+async def is_user_signed(user_id):
     s = select(BotUsers).where(BotUsers.user_id == user_id)
     result = session.execute(s).all()
-    for item in result:
-        for row in item:
-            print(row.user_name)
     if len(result) == 1:
         return True, result[0][0].user_name
     else:
