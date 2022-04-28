@@ -17,15 +17,13 @@ async def is_user_signed(user_id):
 async def checking_data(user_data):
     user_id = user_data["id"]
     # user_id = 22545408
-    reply = await is_user_signed(user_id)
+    reply, username = await is_user_signed(user_id)
     if reply:
-        await send_weather(user_id)
+        await send_weather(user_id, username)
     else:
         keyboard = types.InlineKeyboardMarkup()
-        keyboard.add(types.InlineKeyboardButton(text="Зарегистрироваться", url="http://0.0.0.0:8000/"))
-        await bot.send_message(user_data["id"], f"Необходимо зарегистрироваться в боте\n"
-                                                f"Скопируйте в форму свой user_id: {user_data['id']}",
-                               reply_markup=keyboard)
+        keyboard.add(types.InlineKeyboardButton(text="Вперёд ", url=f"http://127.0.0.1:5000?uid={user_id}"))
+        await bot.send_message(user_data["id"], f"Необходимо зарегистрироваться в боте\n", reply_markup=keyboard)
 
 
 @dp.message_handler(commands=['start'])
@@ -35,8 +33,8 @@ async def send_welcome(message: types.Message):
     await message.answer("Привет! Это бот, который присылает тебе погоду в Москве", reply_markup=keyboard)
 
 
-async def send_weather(chat_id):
-    reply = wa.get_weather()
+async def send_weather(chat_id, user_name):
+    reply = f"{user_name}, только для тебя, погода в Москве:\n" + wa.get_weather()
     await bot.send_message(chat_id, reply)
 
 

@@ -17,6 +17,6 @@ def get_weather():
     sunset_time = dt.datetime.fromtimestamp(data["sys"]["sunset"])
 
     weather = (f"~~~{dt.datetime.now().strftime('%d-%m-%Y %H:%M')}~~~\n"
-               f"Погода в Москве:\nТемпература: {cur_weather} C°\nВлажность: {humidity}%\nДавление: {pressure} мм.рт.мт\n"
+               f"Температура: {cur_weather} C°\nВлажность: {humidity}%\nДавление: {pressure} мм.рт.мт\n"
                f"Скорость ветра: {wind} м/с\nРассвет: {sunrise_time}\nЗакат: {sunset_time}\nХорошего дня!")
     return weather

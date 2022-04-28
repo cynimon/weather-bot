@@ -15,13 +15,11 @@ class BotUsers(base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer(), unique=True)
-    name = Column(String())
-    username = Column(String())
+    user_name = Column(String())
 
-    def __init__(self, user_id, name, username):
+    def __init__(self, user_id, user_name):
         self.user_id = user_id
-        self.name = name
-        self.username = username
+        self.user_name = user_name
 
     def sign_user(self):
         session.add(self)
@@ -31,14 +29,21 @@ class BotUsers(base):
 
 def check_user(user_id):
     s = select(BotUsers).where(BotUsers.user_id == user_id)
-    result = len(session.execute(s).all())
-    if result == 1:
-        return True
+    result = session.execute(s).all()
+    for item in result:
+        for row in item:
+            print(row.user_name)
+    if len(result) == 1:
+        return True, result[0][0].user_name
     else:
-        return False
+        return False, 0
+
 
 def input_data(user_data):
-    pass
+    user_id, user_name = user_data
+    new_user = BotUsers(user_id, user_name)
+    return new_user.sign_user()
+
 
 Session = sessionmaker(db)
 session = Session()
