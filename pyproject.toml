@@ -8,6 +8,9 @@ authors = ["AleksandraV <am.amsti@gmail.com>"]
 python = "^3.8"
 requests = "^2.27.1"
 aiogram = "^2.20"
+SQLAlchemy = "^1.4.36"
+psycopg2-binary = "^2.9.3"
+Flask = "^2.1.1"
 
 [tool.poetry.dev-dependencies]
 
