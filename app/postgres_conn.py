@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, BigInteger, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import select
@@ -14,7 +14,7 @@ class BotUsers(base):
     __tablename__ = 'bot_users'
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer(), unique=True)
+    user_id = Column(BigInteger(), unique=True)
     user_name = Column(String())
 
     def __init__(self, user_id, user_name):
@@ -39,8 +39,7 @@ def check_user(user_id):
         return False, 0
 
 
-def input_data(user_data):
-    user_id, user_name = user_data
+def input_data(user_id, user_name):
     new_user = BotUsers(user_id, user_name)
     return new_user.sign_user()
 

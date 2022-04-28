@@ -14,7 +14,7 @@ head = ("""<!DOCTYPE HTML>
 
 success = ("<h3>Регистрация прошла успешно, можно вернуться к боту</h3>"
            """
-            <form action="https://t.me/msc_wnow_bot?start=start">
+            <form action="https://t.me/msc_wnow_bot?start=">
                <input type="submit" value="Go to Bot" />
            </form>""")
 
@@ -22,15 +22,17 @@ fail = "<h3>Что-то пошло не так, попробуйте в друг
 tail = """</body> </html>"""
 
 
+def get_user_id(reqt):
+    some = str(reqt).split('=')
+    return some[1]
+
+
 @app.route('/', methods=["GET", "POST"])
 def index():
-    if request.method == "GET":
-        uniqid = request.args.get('uid')
     if request.method == "POST":
-        user_id = uniqid
+        user_id = get_user_id(request.environ["HTTP_REFERER"])
         user_name = request.form.get("name")
-        user_data = (user_id, user_name)
-        result = input_data(user_data)
+        result = input_data(user_id, user_name)
         if result:
             return head + success + tail
         else:

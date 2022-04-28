@@ -22,7 +22,7 @@ async def checking_data(user_data):
         await send_weather(user_id, username)
     else:
         keyboard = types.InlineKeyboardMarkup()
-        keyboard.add(types.InlineKeyboardButton(text="Вперёд ", url=f"http://127.0.0.1:5000?uid={user_id}"))
+        keyboard.add(types.InlineKeyboardButton(text="Вперёд  \U000027a1", url=f"https://848d-93-92-200-184.eu.ngrok.io?uid={user_id}"))
         await bot.send_message(user_data["id"], f"Необходимо зарегистрироваться в боте\n", reply_markup=keyboard)
 
 
