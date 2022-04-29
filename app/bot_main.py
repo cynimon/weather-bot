@@ -1,8 +1,13 @@
-from config import tg_bot_token
 import logging
 from aiogram import Bot, Dispatcher, executor, types
 import weather_api as wa
 import database_part as pgc
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+tg_bot_token = os.getenv("tg_bot_token")
 
 logging.basicConfig(level=logging.INFO)
 
@@ -42,9 +47,5 @@ async def send_welcome(call: types.CallbackQuery):
     await checking_data(user_data)
 
 
-def start_bot():
-    executor.start_polling(dp, skip_updates=True)
-
-
 if __name__ == '__main__':
-    start_bot()
+    executor.start_polling(dp, skip_updates=True)

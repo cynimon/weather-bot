@@ -11,6 +11,7 @@ aiogram = "^2.20"
 SQLAlchemy = "^1.4.36"
 psycopg2-binary = "^2.9.3"
 Flask = "^2.1.1"
+python-dotenv = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 

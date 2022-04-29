@@ -1,6 +1,11 @@
-from config import weather_token
 import requests as r
 import datetime as dt
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+weather_token = os.getenv("weather_token")
 
 
 def get_weather():
@@ -16,7 +21,7 @@ def get_weather():
     sunrise_time = dt.datetime.fromtimestamp(data["sys"]["sunrise"])
     sunset_time = dt.datetime.fromtimestamp(data["sys"]["sunset"])
 
-    weather = (f"~~~{dt.datetime.now().strftime('%d-%m-%Y %H:%M')}~~~\n"
+    weather = (f"\U00002728 {dt.datetime.now().strftime('%d-%m-%Y %H:%M')} \U00002728\n"
                f"Температура: {cur_weather} C°\nВлажность: {humidity}%\nДавление: {pressure} мм.рт.мт\n"
                f"Скорость ветра: {wind} м/с\nРассвет: {sunrise_time}\nЗакат: {sunset_time}\nХорошего дня!")
     return weather
