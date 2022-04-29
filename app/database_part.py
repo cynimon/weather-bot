@@ -10,6 +10,7 @@ db = create_engine(db_config)
 base = declarative_base()
 
 
+# модель данных пользователей бота
 class BotUsers(base):
     __tablename__ = 'bot_users'
 
@@ -27,6 +28,7 @@ class BotUsers(base):
         return True
 
 
+# проверка, зарегистрирован ли пользователь в боте и передача его имени в бота
 async def is_user_signed(user_id):
     s = select(BotUsers).where(BotUsers.user_id == user_id)
     result = session.execute(s).all()
@@ -36,6 +38,7 @@ async def is_user_signed(user_id):
         return False, 0
 
 
+# регистрация пользователя в боте
 def input_data(user_id, user_name):
     new_user = BotUsers(user_id, user_name)
     return new_user.sign_user()

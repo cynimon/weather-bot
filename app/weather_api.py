@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-
 weather_token = os.getenv("weather_token")
 
 

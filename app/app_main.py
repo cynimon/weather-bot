@@ -2,10 +2,10 @@ from flask import Flask
 from flask import abort, render_template, request
 import werkzeug.exceptions
 from database_part import input_data
-from aiohttp import web
 
 app = Flask(__name__)
 
+# Страница после успешной регистрации нового пользователя
 success_answer = ("""<!DOCTYPE HTML>
                 <html lang="ru">
                 <head>
@@ -20,11 +20,13 @@ success_answer = ("""<!DOCTYPE HTML>
                 </html>""")
 
 
+# Получение айди юзера из get-запроса при переходе из telegram
 def get_user_id(reqt):
     some = str(reqt).split('=')
     return some[1]
 
 
+# воспроизведение ошибки при некорректном имени пользователя
 def name_valid(username):
     if username.isalnum():
         return username
@@ -32,18 +34,21 @@ def name_valid(username):
         abort(400)
 
 
+# обработка ошибки сервера (500 код)
 @app.errorhandler(werkzeug.exceptions.InternalServerError)
 def hande_not_found(e):
     return "<h3>Что-то пошло не так, попробуйте в другой раз</h3>\n" \
            "<h4>Возможно, ваш аккаунт уже зарегистрирован - перезапустите бота</h4>", 500
 
 
+# обработка искусственной ошибки ввода данных (400 код)
 @app.errorhandler(werkzeug.exceptions.BadRequest)
 def hande_not_found(e):
     return "<h3>Что-то пошло не так, попробуйте в другой раз</h3>\n" \
            "<h4>Возможно, ваше имя введено некорректно - в нём должны быть только буквы или цифры</h4>", 400
 
 
+# получение данных пользователя и регистрация
 @app.route('/', methods=["GET", "POST"])
 def index():
     if request.method == "POST":
