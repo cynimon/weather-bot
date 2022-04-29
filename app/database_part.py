@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import select
 
-db_config = "postgresql://postgres:11qa@localhost:5432/weather_bot"
+db_config = "postgresql://postgres:postgres@localhost:5432/postgres"
 
 db = create_engine(db_config)
 base = declarative_base()
