@@ -2,7 +2,7 @@ from config import tg_bot_token
 import logging
 from aiogram import Bot, Dispatcher, executor, types
 import weather_api as wa
-import postgres_conn as pgc
+import database_part as pgc
 
 logging.basicConfig(level=logging.INFO)
 
@@ -20,9 +20,13 @@ async def checking_data(user_data):
         keyboard.add(types.InlineKeyboardButton(text="Вперёд  \U000027a1", url=f"http://127.0.0.1:5000?uid={user_id}"))
         await bot.send_message(user_data["id"], f"Необходимо зарегистрироваться в боте\n", reply_markup=keyboard)
 
+
 async def send_weather(chat_id, user_name):
     reply = f"{user_name}, только для тебя, погода в Москве:\n" + wa.get_weather()
-    await bot.send_message(chat_id, reply)
+    keyboard = types.InlineKeyboardMarkup()
+    keyboard.add(types.InlineKeyboardButton(text="Обновить", callback_data="click_weather"))
+    await bot.send_message(chat_id, reply, reply_markup=keyboard)
+
 
 @dp.message_handler(commands=['start'])
 async def send_welcome(message: types.Message):
@@ -38,5 +42,9 @@ async def send_welcome(call: types.CallbackQuery):
     await checking_data(user_data)
 
 
-if __name__ == '__main__':
+def start_bot():
     executor.start_polling(dp, skip_updates=True)
+
+
+if __name__ == '__main__':
+    start_bot()

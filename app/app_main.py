@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template, request
-from postgres_conn import input_data
+from database_part import input_data
+import bot_main
 
 
 app = Flask(__name__)
@@ -43,3 +44,4 @@ def index():
 
 if __name__ == "__main__":
     app.run()
+
